@@ -1,0 +1,4 @@
+.directory
+.vagrant/**
+volumes/**
+test/**

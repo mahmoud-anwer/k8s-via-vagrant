@@ -14,6 +14,9 @@
     kubeadm token create  --print-join-command
 
 ### On the slave nodes, run the ```joining command``` we have just generated.
-    kubeadm join master_node_IP:6443 --token your_token --discovery-token-ca-cert-hash sha256:your_sha256_hashded_token 
+    kubeadm join master_node_IP:6443 --token your_token --discovery-token-ca-cert-hash sha256:your_sha256_hashded_token
+
+### On the master node, run this command to check your nodes.
+    kubectl get nodes -o wide
 
 #### ```Happy journey```, you have a Kubernetes cluster up and running.

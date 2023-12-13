@@ -3,6 +3,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "bento/ubuntu-22.04"
   
+  # Kubernetes master node
   config.vm.define "master" do |master|
     master.vm.hostname = "master-node"
     master.vm.network "private_network", ip: "192.168.56.20"
@@ -14,6 +15,7 @@ Vagrant.configure("2") do |config|
     master.vm.provision "shell", path: "./scripts/master.sh"
   end
 
+  # Kubernetes worker nodes
   (1..2).each do |i|
     config.vm.define "node0#{i}" do |node|
         node.vm.hostname = "worker-node0#{i}"
@@ -24,5 +26,17 @@ Vagrant.configure("2") do |config|
         end
     end
   end
+
+  # NFS server
+  config.vm.define "nfs" do |nfs|
+    nfs.vm.box = "bento/ubuntu-20.04"
+    nfs.vm.hostname = "nfs"
+    nfs.vm.network "private_network", ip: "192.168.56.100"
+    nfs.vm.provider "virtualbox" do |vb|
+        vb.memory = 512
+        vb.cpus = 1
+    end
+  end
+
 
 end
